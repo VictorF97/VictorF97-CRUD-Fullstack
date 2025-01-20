@@ -8,7 +8,7 @@ Este é um projeto de gerenciamento de usuários que utiliza .NET no backend e A
 
 - **Backend**: .NET Core 6.0
 - **Frontend**: Angular 15
-- **Banco de Dados**: SQL Server
+- **Banco de Dados**: MySQL
 - **Comunicação**: RESTful APIs
 
 ---
