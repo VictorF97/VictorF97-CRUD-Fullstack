@@ -1,0 +1,122 @@
+<div class="container p-5" *ngIf="visibilidadeTabela">
+    <div class="border border-light rounded p-5">
+        <div>
+            <button type="button" class="btn btn-sm btn-secondary" (click)="ExibirFormularioCadastro()">
+                Cadastro Pessoa
+            </button>
+        </div>
+
+        <hr />
+
+        <table class="table table-striped table-hover table-sm" *ngIf="pessoas">
+            <tbody>
+                <tr class="thead-light">
+                    <th>Nome</th>
+                    <th>Sobrenome</th>
+                    <th>Idade</th>
+                    <th>Profissão</th>
+                    <th>Ações</th>
+                </tr>
+            </tbody>
+            
+            <tbody>
+                <tr *ngFor="let pessoa of pessoas">
+                    <td>{{ pessoa.nome }}</td>
+                    <td>{{ pessoa.sobrenome }}</td>
+                    <td>{{ pessoa.idade }}</td>
+                    <td>{{ pessoa.profissao }}</td>
+                    <td>
+                        <button type="button" class="btn btn-sm btn-outline-info" (click)="AtualizaPessoaFormulario(pessoa.pessoaId)">
+                            Atualizar
+                        </button>
+                        <button type="button" class="btn btn-sm btn-outline-danger" (click)="ConfirmaExclusaoFormulario(pessoa.pessoaId, pessoa.nome, conteudoModal)">
+                            Excluir
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+            
+        </table>
+    </div>
+</div>
+
+<div class="container p-5" *ngIf="visibilidadeFormulario">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-lg-6 border border-light rounded p-5 shadow" *ngIf="formulario">
+            <h4 class="text-center">{{ tituloFormulario }}</h4>
+            <hr />
+
+            <form [formGroup]="formulario" (ngSubmit)="EnviarFormulario()">
+                <div class="form-group mb-3">
+                    <label for="nome">Nome:</label>
+                    <input
+                        type="text"
+                        id="nome"
+                        class="form-control"
+                        formControlName="nome"
+                        placeholder="Digite o nome"
+                        required
+                    >
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="sobrenome">Sobrenome:</label>
+                    <input
+                        type="text"
+                        id="sobrenome"
+                        class="form-control"
+                        formControlName="sobrenome"
+                        placeholder="Digite o sobrenome"
+                        required
+                    >
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="idade">Idade:</label>
+                    <input
+                        type="number"
+                        id="idade"
+                        class="form-control"
+                        formControlName="idade"
+                        placeholder="Digite a idade"
+                        required
+                    >
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="profissao">Profissão:</label>
+                    <input
+                        type="text"
+                        id="profissao"
+                        class="form-control"
+                        formControlName="profissao"
+                        placeholder="Digite a profissão"
+                        required
+                    >
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <button type="submit" class="btn btn-success px-4">Salvar</button>
+                    <button type="button" class="btn btn-secondary px-4" (click)="Voltar()">Voltar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<ng-template #conteudoModal>
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">Confirmação de exclusão</h4>
+      <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef.hide()">
+        <span aria-hidden="true" class="visually-hidden">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      Prosseguir com a exclusão do(a) {{nomePessoa}}?
+    </div>
+  
+    <div class="modal-footer">
+      <button type="button" class="btn btn-light" (click)="modalRef.hide()">Não</button>
+      <button type="button" class="btn btn-outline-danger" (click)="ExcluiPessoa(pessoaId)">Sim</button>
+    </div>
+  </ng-template>
